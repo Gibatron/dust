@@ -1,0 +1,31 @@
+{
+	"schemaVersion": 1,
+	"id": "dust",
+	"version": "${version}",
+	"name": "Dust",
+	"description": "A server side mod that adds dust and several ways to deal with said dust.",
+	"authors": [
+		"MrTurtle"
+	],
+	"contact": {
+		"homepage": "https://modrinth.com/mod/dusty",
+		"sources": "https://github.com/Gibatron/dust"
+	},
+	"license": "MIT",
+	"icon": "assets/dust/icon.png",
+	"environment": "*",
+	"entrypoints": {
+		"main": [
+			"dev.mrturtle.Dust"
+		]
+	},
+	"mixins": [
+		"dust.mixins.json"
+	],
+	"depends": {
+		"fabricloader": ">=0.15.11",
+		"minecraft": "~1.21-",
+		"java": ">=21",
+		"fabric-api": "*"
+	}
+}

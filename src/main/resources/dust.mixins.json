@@ -1,0 +1,16 @@
+{
+  "required": true,
+  "package": "dev.mrturtle.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "mixins": [
+	"AbstractBlockMixin",
+	"AbstractWindChargeEntityMixin",
+	"BreezeEntityMixin",
+	"BrushItemMixin",
+	"ServerPlayerEntityMixin",
+	"WorldChunkMixin"
+  ],
+  "injectors": {
+	"defaultRequire": 1
+  }
+}

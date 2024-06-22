@@ -1,0 +1,17 @@
+{
+  "type": "minecraft:crafting_shaped",
+  "category": "misc",
+  "key": {
+	"#": {
+	  "item": "dust:dust_bunny_hide"
+	}
+  },
+  "pattern": [
+	"##",
+	"##"
+  ],
+  "result": {
+	"count": 1,
+	"id": "minecraft:rabbit_hide"
+  }
+}

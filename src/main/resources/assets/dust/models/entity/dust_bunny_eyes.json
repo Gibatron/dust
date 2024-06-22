@@ -1,0 +1,21 @@
+{
+  "textures": {
+	"blade": "dust:block/dust_bunny_eyes"
+  },
+  "elements": [
+	{
+	  "from": [0, 0, 8],
+	  "to": [16, 16, 8],
+	  "rotation": {"angle": 0, "axis": "y", "origin": [8, 8, 8]},
+	  "color": 6,
+	  "faces": {
+		  "north": {"uv": [0, 0, 16, 16], "texture": "blade"},
+		  "east": {"uv": [0, 0, 0, 16], "texture": "blade"},
+		  "south": {"uv": [0, 0, 16, 16], "texture": "blade"},
+		  "west": {"uv": [0, 0, 0, 16], "texture": "blade"},
+		  "up": {"uv": [0, 0, 16, 0], "texture": "blade"},
+		  "down": {"uv": [0, 0, 16, 0], "texture": "blade"}
+	  }
+	}
+  ]
+}
