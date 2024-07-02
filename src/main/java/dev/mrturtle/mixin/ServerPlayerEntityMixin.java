@@ -5,7 +5,6 @@ import dev.mrturtle.Dust;
 import dev.mrturtle.other.DustElementHolder;
 import dev.mrturtle.DustEntities;
 import dev.mrturtle.entity.DustBunnyEntity;
-import dev.mrturtle.other.DustRestrictionAttachment;
 import dev.mrturtle.other.DustUtil;
 import net.minecraft.entity.player.PlayerEntity;
 import net.minecraft.server.network.ServerPlayerEntity;
@@ -52,15 +51,13 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         boolean isAfk = (Util.getMeasuringTimeMs() - getLastActionTime()) > Dust.TIME_FOR_AFK;
         ServerWorld world = getServerWorld();
 
-        boolean hasRestriction = world.getServer().getOverworld().hasAttached(Dust.DUST_RESTRICTION_ATTACHMENT);
-        DustRestrictionAttachment restriction = world.getServer().getOverworld().getAttached(Dust.DUST_RESTRICTION_ATTACHMENT);
+        if (!world.getGameRules().getBoolean(Dust.DO_DUST_ACCUMULATION))
+            return;
 
         int range = world.random.nextBetween(4, 6);
         Iterable<BlockPos> positions = BlockPos.iterateRandomly(world.random, 2, getBlockPos(), range);
         for (BlockPos blockPos : positions) {
             if (!DustUtil.isValidDustPlacement(world, blockPos.toImmutable()))
-                continue;
-            if (hasRestriction && !restriction.bounds().contains(blockPos))
                 continue;
             float dustAmount = DustUtil.getDustAt(world, blockPos.toImmutable());
             if (dustAmount >= DustElementHolder.MAX_DUST_VALUE) {
