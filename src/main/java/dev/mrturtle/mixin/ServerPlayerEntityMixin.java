@@ -51,19 +51,22 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
         boolean isAfk = (Util.getMeasuringTimeMs() - getLastActionTime()) > Dust.TIME_FOR_AFK;
         ServerWorld world = getServerWorld();
 
-        if (!world.getGameRules().getBoolean(Dust.DO_DUST_ACCUMULATION))
-            return;
-
         int range = world.random.nextBetween(4, 6);
         Iterable<BlockPos> positions = BlockPos.iterateRandomly(world.random, 2, getBlockPos(), range);
         for (BlockPos blockPos : positions) {
-            if (!DustUtil.isValidDustPlacement(world, blockPos.toImmutable()))
+            blockPos = blockPos.toImmutable();
+            if (!DustUtil.isValidDustPlacement(world, blockPos))
                 continue;
-            float dustAmount = DustUtil.getDustAt(world, blockPos.toImmutable());
+
+            // Dust cannot accumulate in a world with doDustAccumulation off, unless the block is inside a dust area
+            if (!world.getGameRules().getBoolean(Dust.DO_DUST_ACCUMULATION) && !DustUtil.isInsideDustArea(world, blockPos))
+                return;
+
+            float dustAmount = DustUtil.getDustAt(world, blockPos);
             if (dustAmount >= DustElementHolder.MAX_DUST_VALUE) {
                 if (ticksSinceLastDustBunnySpawn <= 0 && !isAfk) {
                     ticksSinceLastDustBunnySpawn = DUST_BUNNY_SPAWN_DELAY;
-                    DustUtil.modifyDustAt(world, blockPos.toImmutable(), -0.5f);
+                    DustUtil.modifyDustAt(world, blockPos, -0.5f);
                     for (int i = 0; i < DUST_BUNNY_SPAWN_COUNT; i++) {
                         DustBunnyEntity dustBunny = new DustBunnyEntity(DustEntities.DUST_BUNNY, world);
                         Vec3d pos = DustUtil.getExposedNeighbors(world, blockPos.toImmutable()).get(0).toCenterPos();
@@ -72,7 +75,7 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                     }
                 }
             } else {
-                DustUtil.modifyDustAt(world, blockPos.toImmutable(), DustElementHolder.DUST_ACCUMULATION_RATE);
+                DustUtil.modifyDustAt(world, blockPos, DustElementHolder.DUST_ACCUMULATION_RATE);
             }
         }
     }

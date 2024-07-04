@@ -3,6 +3,7 @@ package dev.mrturtle.other;
 import dev.mrturtle.Dust;
 import dev.mrturtle.access.WorldChunkAccess;
 import net.minecraft.block.BlockState;
+import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.math.BlockPos;
 import net.minecraft.util.math.Direction;
 import net.minecraft.util.math.MathHelper;
@@ -86,5 +87,17 @@ public class DustUtil {
             exposed.add(offsetPos);
         }
         return exposed;
+    }
+
+    public static boolean isInsideDustArea(ServerWorld world, BlockPos pos) {
+        if (!world.hasAttached(Dust.DUST_AREA_ATTACHMENT))
+            return false;
+
+        DustAreaAttachment attachment = world.getAttachedOrCreate(Dust.DUST_AREA_ATTACHMENT, () -> new DustAreaAttachment(new HashMap<>()));
+        for (DustArea area : attachment.areas().values()) {
+            if (area.bounds().contains(pos))
+                return true;
+        }
+        return false;
     }
 }
