@@ -44,8 +44,8 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
 
     @Inject(method = "tick", at = @At("TAIL"))
     public void accumulateDust(CallbackInfo ci) {
-        // Only accumulate dust near players in survival
-        if (interactionManager.getGameMode() != GameMode.SURVIVAL)
+        // Only accumulate dust near players in survival or adventure
+        if (interactionManager.getGameMode() != GameMode.SURVIVAL && interactionManager.getGameMode() != GameMode.ADVENTURE)
             return;
         ticksSinceLastDustBunnySpawn = Math.max(ticksSinceLastDustBunnySpawn - 1, 0);
         boolean isAfk = (Util.getMeasuringTimeMs() - getLastActionTime()) > Dust.TIME_FOR_AFK;
