@@ -12,6 +12,7 @@ import net.minecraft.server.network.ServerPlayerInteractionManager;
 import net.minecraft.server.world.ServerWorld;
 import net.minecraft.util.Util;
 import net.minecraft.util.math.BlockPos;
+import net.minecraft.util.math.Box;
 import net.minecraft.util.math.Vec3d;
 import net.minecraft.world.GameMode;
 import net.minecraft.world.World;
@@ -68,8 +69,13 @@ public abstract class ServerPlayerEntityMixin extends PlayerEntity {
                     ticksSinceLastDustBunnySpawn = DUST_BUNNY_SPAWN_DELAY;
                     DustUtil.modifyDustAt(world, blockPos, -0.5f);
                     for (int i = 0; i < DUST_BUNNY_SPAWN_COUNT; i++) {
+                        Box box = new Box(blockPos.toCenterPos().add(-5, -5, -5), blockPos.toCenterPos().add(5, 5, 5));
+                        int dustBunnyCount = world.getEntitiesByClass(DustBunnyEntity.class, box, (bunny) -> true).size();
+                        if (dustBunnyCount >= 2)
+                            break;
+
                         DustBunnyEntity dustBunny = new DustBunnyEntity(DustEntities.DUST_BUNNY, world);
-                        Vec3d pos = DustUtil.getExposedNeighbors(world, blockPos.toImmutable()).get(0).toCenterPos();
+                        Vec3d pos = DustUtil.getExposedNeighbors(world, blockPos).get(0).toCenterPos();
                         dustBunny.setPos(pos.getX(), pos.getY(), pos.getZ());
                         world.spawnEntity(dustBunny);
                     }

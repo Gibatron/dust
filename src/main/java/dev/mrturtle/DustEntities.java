@@ -11,8 +11,9 @@ import net.minecraft.util.Identifier;
 
 public class DustEntities {
     public static final EntityType<DustBunnyEntity> DUST_BUNNY = register(
-            EntityType.Builder.create(DustBunnyEntity::new, SpawnGroup.MISC)
+            EntityType.Builder.create(DustBunnyEntity::new, SpawnGroup.MONSTER)
                     .dimensions(0.25f, 0.25f)
+                    .disableSaving()
                     .build(), "dust_bunny");
 
     public static void initialize() {
