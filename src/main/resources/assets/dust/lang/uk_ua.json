@@ -1,0 +1,7 @@
+{
+  "item.dust.dust_bunny_hide": "Шкіра пилового кролика",
+  "item.dust.dust_bunny_spawn_egg": "Яйце виклику пилового кролика",
+  "entity.dust.dust_bunny": "Пиловий кролик",
+  "itemgroup.dust": "Пил",
+  "gamerule.doDustAccumulation": "Накопичення пилу"
+}
