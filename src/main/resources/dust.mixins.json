@@ -7,6 +7,7 @@
 	"AbstractWindChargeEntityMixin",
 	"BreezeEntityMixin",
 	"BrushItemMixin",
+	"ItemStackMixin",
 	"ServerPlayerEntityMixin",
 	"WorldChunkMixin"
   ],
