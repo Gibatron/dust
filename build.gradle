@@ -28,10 +28,10 @@ dependencies {
 	// Fabric API. This is technically optional, but you probably want it anyway.
 	modImplementation "net.fabricmc.fabric-api:fabric-api:${project.fabric_version}"
 
-	modImplementation include("eu.pb4:polymer-core:0.9.2+1.21")
-	modImplementation include("eu.pb4:polymer-resource-pack:0.9.2+1.21")
-	modImplementation include("eu.pb4:polymer-virtual-entity:0.9.2+1.21")
-	modImplementation include("eu.pb4:polymer-autohost:0.9.2+1.21")
+	modImplementation include("eu.pb4:polymer-core:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-resource-pack:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-virtual-entity:${project.polymer_version}")
+	modImplementation include("eu.pb4:polymer-autohost:${project.polymer_version}")
 
 }
 
